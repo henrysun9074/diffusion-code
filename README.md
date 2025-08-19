@@ -9,4 +9,6 @@ The original model used to generate the above humpback whale images produced by 
 
 Within the */custom_scripts/* directory in this repo, we include the Python script provided by Diffusers for fine-tuning Stable Diffusion XL models (**train_dreambooth_lora_sdxl.py**). The shell script, **train_dreambooth_lora_sdxl.sh**, runs the Python script with identical hyperparameter values to those used for model fine-tuning. 
 
+The training images and prompts used to fine-tune the humpback whale LoRA model are all available on Hugging Face [here](https://huggingface.co/datasets/henrysun9074/autotrain-drone-humpback-whale-lora-1). Training images are property of the Duke Marine Robots and Remote Sensing Lab under permit by NOAA.
+
 Following model fine-tuning, or to work with an existing fine-tuned LoRA model, we used **batchgen.ipynb** to generate batches of synthetic images. This Jupyter Notebook uses the Diffusers library to produce large quantities of synthetic images at a time, with all whale images in publication figures sourced from batch-generated outputs with the aforementioned humpback whale LoRA.
