@@ -38,7 +38,7 @@ Located in the `custom_scripts/` directory:
 - Training images and prompts are hosted on Hugging Face:  
   🔗 [Drone Humpback Whale Training Dataset](https://huggingface.co/datasets/henrysun9074/autotrain-drone-humpback-whale-lora-1)  
 
-All training images are property of the **Duke Marine Robots and Remote Sensing Lab**, collected under NOAA permit.  
+All training images are property of the **Duke Marine Robotics and Remote Sensing Lab**, collected under NOAA permit.  
 
 ### Image Generation  
 
