@@ -1,19 +1,24 @@
 #!/bin/bash
 
-. /c/Users/hs325/AppData/Local/anaconda3/etc/profile.d/conda.sh
+# -------------------------------------------------------------------
+# Activate your conda environment. Make sure all required packages are installed prior to running the script
+# Replace "myenv" with the name of your conda environment
+# -------------------------------------------------------------------
+# Example: conda activate pytorch
+source ~/anaconda3/etc/profile.d/conda.sh
+conda activate myenv
 
-conda activate pytorch
-
-'''
-Change the first three variables below to match the folders for the files you are using
-MODEL_NAME should be the repo with the base diffusion model on Hugging Face
-INSTANCE_DIR should correspond to the folder with input images for fine-tuning
-OUTPUT_DIR is where the resulting fine-tuned model repo will be placed
-'''
+# -------------------------------------------------------------------
+# Set paths and parameters
+# Update these three variables to match your setup:
+# MODEL_NAME: Base diffusion model from Hugging Face (e.g., stabilityai/stable-diffusion-xl-base-1.0)
+# INSTANCE_DIR: Local directory containing your training images
+# OUTPUT_DIR: Directory where the fine-tuned model will be saved
+# -------------------------------------------------------------------
 export MODEL_NAME="stabilityai/stable-diffusion-xl-base-1.0"
-export INSTANCE_DIR="D:\Projects\HappyHumpbacks\TrainDreamboothHWIMGs"
-export OUTPUT_DIR="D:\Projects\HappyHumpbacks\HHlora-out"
-export CUDA_VISIBLE_DEVICES=0
+export INSTANCE_DIR="/path/to/your/training/images"
+export OUTPUT_DIR="/path/to/save/fine-tuned-model"
+export CUDA_VISIBLE_DEVICES=0   # Change if you want to specify a different GPU
 
 '''
 The following code runs the script. Adjust existing hyperparameters and include more optional ones as necessary
