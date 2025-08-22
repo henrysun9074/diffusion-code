@@ -1,0 +1,11 @@
+ftfy==6.3.1
+regex==2024.11.6
+scipy==1.16.1
+pillow==11.3.0
+pandas==2.2.2
+scikit-learn==1.6.1
+numpy==2.0.2
+torch==2.8.0+cu126
+torchvision==0.23.0+cu126
+tqdm==4.67.1
+git+https://github.com/openai/CLIP.git@dcba3cb2e2827b402d2701e7e1c7d9fed8a20ef1
