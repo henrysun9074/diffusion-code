@@ -29,7 +29,7 @@ This is required to download and use models stored on Hugging Face.
    huggingface-cli login
 3. Paste your token when prompted. 
 
-Once logged in and paths updated, you can run the model fine-tuning or use the Jupyter notebook to generate large batches of synthetic images. These scripts are all located in the `custom_scripts/` directory:  
+Once logged in and paths updated, you can run the model fine-tuning or use the Jupyter notebook to generate large batches of synthetic images. These scripts are all located in the `generation/` directory:  
 
 ### Fine-tuning Diffusion Model using LoRA  
 
@@ -39,7 +39,7 @@ Once logged in and paths updated, you can run the model fine-tuning or use the J
 - ```train_dreambooth_lora_sdxl.sh```  
   Shell script that runs the train_dreambooth_lora_sdxl.py script with specified hyperparameters for fine-tuning diffusion model.   
 
-Edit the filepaths in `custom_scripts/train_dreambooth_lora_sdxl.script.sh` to set the correct paths. Set:
+Edit the filepaths in `generation/train_dreambooth_lora_sdxl.script.sh` to set the correct paths. Set:
 
    `REPOSITORY_PATH` to the path of the cloned repository, e.g., `path/to/diffusion-code`. //// maybe not needed ////  
    `CACHE_PATH` to a location where temp files can be stored during development. //// maybe not needed ////  
@@ -56,7 +56,13 @@ Currently, the script is set up to run the fine-tuning the same hyperparameter v
 - ```batchgen.ipynb```  
   Jupyter Notebook for generating batches of synthetic images. This script uses the Diffusers library to produce large quantities of images, including those used in publication figures.  
 
-Edit the model paths in `custom_scripts/batchgen.ipynb` to the desired model repo on Hugging Face. Adjust the number of total images and the batch size as necessary. More detailed instructions are available within the Jupyter notebook.  
+Edit the model paths in `generation/batchgen.ipynb` to the desired model repo on Hugging Face. Adjust the number of total images and the batch size as necessary. More detailed instructions are available within the Jupyter notebook.    
+
+
+### Explainability Pipeline
+
+TBA  
+
 
 ## 📦 Installation
 
@@ -98,8 +104,8 @@ Create a virtual environment using environment.yml file and install all required
 
 The following compute and storage resources are recommended:
 
-- **Compute**: X x NVIDIA AX GPU or better with at least XGB of free memory. The training and inference scripts are designed to run on .... , but can be adapted for local use?
-- **Storage**: At least X GB of free disk space for the dataset, model weights, and code base. Additional space may be required for model outputs and training datasets, depending if you change the patch dataset parameters and/or use your own dataset.
+- **Compute**: We ran the scripts using a NVIDIA GeForce RTX 4060 Ti with 8GB GDDR6 GPU memory. Batch generation was also done using Google Colab's T4 GPU with 12 GB of VRAM. For the batch generation scripts, lower GPU memory can be supported by decreasing the batch size.
+- **Storage**: At least ~15 GB of free disk space for the dataset, SD1.0XL model weights, and code base. Additional space may be required for model outputs and training datasets, depending if you change the patch dataset parameters and/or use your own dataset. The fine-tuned LoRA model hosted on Hugging Face occupies about 90 MB of storage.
 
 ## 📂 Data Access
 
