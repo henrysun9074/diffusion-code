@@ -14,7 +14,7 @@ Fine-tuning stable diffusion model to generate synthetic imagery of humpback wha
 
 This repository provides code and instructions for _From Noise to Nature: Diffusion Models to Advance Wildlife Detection in Remote Sensing Data_ (Sun et al., 2025) [Add link to paper when available].
 
-The original model used to generate synthetic imagery of humpback was created by fine-tuning **Stable Diffusion 1.0 XL** using a [Hugging Face Space](https://huggingface.co/spaces/multimodalart/lora-ease) by user **multimodalart**. While the space has since been deactivated, the same fine-tuning process can also be reproduced using scripts from the open-source [Diffusers](https://github.com/huggingface/diffusers) library.  
+The original model used to generate synthetic imagery of humpback was created by fine-tuning **Stable Diffusion 1.0 XL** using a [Hugging Face Space](https://huggingface.co/spaces/multimodalart/lora-ease) by user **multimodalart**. While the space has since been deactivated, the same fine-tuning process can be reproduced using scripts from the open-source [Diffusers](https://github.com/huggingface/diffusers) library which the HF space was running under the hood.  
 
 ## 📊 Usage
 
@@ -29,14 +29,26 @@ This is required to download and use models stored on Hugging Face.
    huggingface-cli login
 3. Paste your token when prompted. 
 
-Once logged in and paths updated, you can run the model fine-tuning or use the Jupyter notebook to generate large batches of synthetic images. These scripts are all located in the `generation/` directory:  
+Once logged in and paths updated, you can run the model fine-tuning or use the Jupyter notebook to generate large batches of synthetic images. Subsequently, you can run the CLIP evaluation pipeline to generate semantic similarity scores for the synthetic images.  
+
+
+### 🌎 Environment Setup
+
+To run fine-tuning with `generation/train_dreambooth_lora_sdxl.py`, we recommend using a dedicated **conda environment** with all required dependencies installed. Follow the provided documentation about how to set up a virtual environment with Diffusers [here](https://github.com/huggingface/diffusers?tab=readme-ov-file) (see *#Installation*). We recommend installing PyTorch in the same virtual environment. You can find the appropriate version of PyTorch for your machine [here](https://pytorch.org/get-started/locally/).
+
+Activate your virtual environment, then verify installation and make sure diffusers and transformers are installed and importable: 
+```bash
+python -c "import diffusers, transformers; print(diffusers.__version__, transformers.__version__)"
+```
+
+After setting up your virtual environment with the necessary packages, you will also be able to run ```generation/batchgen.ipynb```.
 
 ### Fine-tuning Diffusion Model using LoRA  
 
-- ```train_dreambooth_lora_sdxl.py```  
+- ```generation/train_dreambooth_lora_sdxl.py```  
   Python script (verbatim, from Hugging Face Diffusers library) for fine-tuning Stable Diffusion XL models. Other scripts are available for model fine-tuning in the Diffusers library as well, such as models which use different versions of Stable Diffusion (e.g SD 3.0).
 
-- ```train_dreambooth_lora_sdxl.sh```  
+- ```generation/train_dreambooth_lora_sdxl.sh```  
   Shell script that runs the train_dreambooth_lora_sdxl.py script with specified hyperparameters for fine-tuning diffusion model.   
 
 Edit the filepaths in `generation/train_dreambooth_lora_sdxl.script.sh` to set the correct paths. Set:
@@ -53,16 +65,39 @@ Currently, the script is set up to run the fine-tuning the same hyperparameter v
 
 ### Batch Synthetic Image Generation using Fine-tuned Diffusion Model  
 
-- ```batchgen.ipynb```  
+- ```generation/batchgen.ipynb```  
   Jupyter Notebook for generating batches of synthetic images. This script uses the Diffusers library to produce large quantities of images, including those used in publication figures.  
 
 Edit the model paths in `generation/batchgen.ipynb` to the desired model repo on Hugging Face. Adjust the number of total images and the batch size as necessary. More detailed instructions are available within the Jupyter notebook.    
 
 
-### Explainability Pipeline
+### Explainability Pipeline using Contrastive Language Image Pre-Training (CLIP)
 
-TBA  
+- ```evaluation/clip_evaluation.py```  
 
+This script evaluates synthetic images against a reference set of real species images using the CLIP (Contrastive Language-Image Pre-training) model. The script computes CLIP embeddings for real species images to create a reference centroid, then scores synthetic images against this centroid using cosine similarity. This allows you to assess how well synthetic images match the visual characteristics of the target species.
+
+
+#### Requirements
+
+Install dependencies from `evaluation/requirements.txt`:
+```bash
+cd evaluation
+pip install -r requirements.txt
+```
+
+#### Usage 
+```bash
+python clip_evaluation.py \
+    --species-folder data/real \
+    --synthetic-folder data/synthetic \
+    --similarity-threshold 0.3
+```
+
+The script takes the following arguments:  
+- `--species-folder`: Path to folder containing real species images (default: `data/real`)
+- `--synthetic-folder`: Path to folder containing synthetic images to evaluate (default: `data/synthetic`)
+- `--similarity-threshold`: Cosine similarity threshold for pass/fail (default: 0.3)
 
 ## 📦 Installation
 
@@ -92,20 +127,13 @@ TBA
    cd diffusion-code
    ```
 
-### 🌎 Environment Setup
-
-Create a virtual environment using environment.yml file and install all required packages
-- need to add yaml file with dependencies 
-- add instructions on how to build environment using conda
-- e.g. conda create....using yml
-
 
 ## 🖥️ Compute and Storage Requirements
 
 The following compute and storage resources are recommended:
 
 - **Compute**: We ran the scripts using a NVIDIA GeForce RTX 4060 Ti with 8GB GDDR6 GPU memory. Batch generation was also done using Google Colab's T4 GPU with 12 GB of VRAM. For the batch generation scripts, lower GPU memory can be supported by decreasing the batch size.
-- **Storage**: At least ~15 GB of free disk space for the dataset, SD1.0XL model weights, and code base. Additional space may be required for model outputs and training datasets, depending if you change the patch dataset parameters and/or use your own dataset. The fine-tuned LoRA model hosted on Hugging Face occupies about 90 MB of storage.
+- **Storage**: At least ~15 GB of free disk space for the dataset, SD1.0XL model weights, and code base. Additional space may be required for model outputs and training datasets, depending if you change the patch dataset parameters and/or use your own dataset. The fine-tuned LoRA model hosted on Hugging Face occupies about 90 MB of storage. You can also change the location where model weights are stored and cached (link [here](https://huggingface.co/docs/diffusers/en/installation?install=pip) for more).
 
 ## 📂 Data Access
 
