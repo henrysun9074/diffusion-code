@@ -15,10 +15,10 @@ conda activate myenv
 # INSTANCE_DIR: Local directory containing your training images
 # OUTPUT_DIR: Directory where the fine-tuned model will be saved
 # -------------------------------------------------------------------
-export MODEL_NAME="stabilityai/stable-diffusion-xl-base-1.0"
+export MODEL_NAME="stabilityai/stable-diffusion-xl-base-1.0" # the SDXL training script will not work with base SD
 export INSTANCE_DIR="/path/to/your/training/images"
 export OUTPUT_DIR="/path/to/save/fine-tuned-model"
-export CUDA_VISIBLE_DEVICES=0   # Change if you want to specify a different GPU
+export CUDA_VISIBLE_DEVICES=0   # Change if you want to specify a different GPU on a multi-GPU system
 
 '''
 The following code runs the script. Adjust existing hyperparameters and include more optional ones as necessary

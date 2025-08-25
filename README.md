@@ -52,10 +52,7 @@ After setting up your virtual environment with the necessary packages, you will 
   Shell script that runs the train_dreambooth_lora_sdxl.py script with specified hyperparameters for fine-tuning diffusion model.   
 
 Edit the filepaths in `generation/train_dreambooth_lora_sdxl.script.sh` to set the correct paths. Set:
-
-   `REPOSITORY_PATH` to the path of the cloned repository, e.g., `path/to/diffusion-code`. //// maybe not needed ////  
-   `CACHE_PATH` to a location where temp files can be stored during development. //// maybe not needed ////  
-   `CONDA_PATH` to the path of your Conda installation. //// maybe not needed ////  
+ 
    `INSTANCE_DIR` to the location with your training images  
    `MODEL_NAME` to the location of the base diffusion model on Hugging Face  
    `OUTPUT_DIR` to the location where your fine-tuned model repository will be saved  
