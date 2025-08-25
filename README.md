@@ -14,11 +14,11 @@ Fine-tuning stable diffusion model to generate synthetic imagery of humpback wha
 
 This repository provides code and instructions for _From Noise to Nature: Diffusion Models to Advance Wildlife Detection in Remote Sensing Data_ (Sun et al., 2025) [Add link to paper when available].
 
-The original model used to generate synthetic imagery of humpback was created by fine-tuning **Stable Diffusion 1.0 XL** using a [Hugging Face Space](https://huggingface.co/spaces/multimodalart/lora-ease) by user **multimodalart**. While the space has since been deactivated, the same fine-tuning process can be reproduced using scripts from the open-source [Diffusers](https://github.com/huggingface/diffusers) library which the HF space was running under the hood.  
+The original model used to generate synthetic imagery of humpback was created by fine-tuning **Stable Diffusion 1.0 XL** using a [Hugging Face Space](https://huggingface.co/spaces/multimodalart/lora-ease) by user **multimodalart**. While the space has since been deactivated, the same fine-tuning process can be reproduced using scripts from the open-source [Diffusers](https://github.com/huggingface/diffusers) library which the HF space was running under the hood. 
 
 ## 📊 Usage
 
-Prior to running any of these scripts, ensure your Conda environment is properly set up with all required packages installed (see *Setup* below).
+Prior to running any of these scripts, ensure your Conda environment is properly set up with all required packages installed (see *Environment Setup* below).
 
 Additionally, make sure you are logged into Hugging Face from your terminal.  
 This is required to download and use models stored on Hugging Face.  
@@ -46,7 +46,7 @@ After setting up your virtual environment with the necessary packages, you will 
 ### Fine-tuning Diffusion Model using LoRA  
 
 - ```generation/train_dreambooth_lora_sdxl.py```  
-  Python script (verbatim, from Hugging Face Diffusers library) for fine-tuning Stable Diffusion XL models. Other scripts are available for model fine-tuning in the Diffusers library as well, such as models which use different versions of Stable Diffusion (e.g SD 3.0).
+  Python script (verbatim, from Hugging Face Diffusers library) for fine-tuning Stable Diffusion XL models. Other scripts are available for model fine-tuning in the Diffusers library as well, such as models which use different versions of Stable Diffusion (e.g SD 3.0). 
 
 - ```generation/train_dreambooth_lora_sdxl.sh```  
   Shell script that runs the train_dreambooth_lora_sdxl.py script with specified hyperparameters for fine-tuning diffusion model.   
